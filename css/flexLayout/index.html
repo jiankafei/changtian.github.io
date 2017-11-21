@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>flex布局解析 | Zr的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前言flexbox的发展还是比较曲折的，总共经历了三个版本，旧版本，过度版本，新版本。想想都可怕。这是我在学习flexbox盒模型后，对它的理解，希望能解决初学者在学习flexbox时遇到的概念陷阱，帮助初学者很好的理解和学习flexbox。">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flex布局解析">
+<meta property="og:url" content="https://jiankafei.github.io/css/flexLayout/index.html">
+<meta property="og:site_name" content="Zr的博客">
+<meta property="og:description" content="前言flexbox的发展还是比较曲折的，总共经历了三个版本，旧版本，过度版本，新版本。想想都可怕。这是我在学习flexbox盒模型后，对它的理解，希望能解决初学者在学习flexbox时遇到的概念陷阱，帮助初学者很好的理解和学习flexbox。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-04-10T10:42:44.165Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flex布局解析">
+<meta name="twitter:description" content="前言flexbox的发展还是比较曲折的，总共经历了三个版本，旧版本，过度版本，新版本。想想都可怕。这是我在学习flexbox盒模型后，对它的理解，希望能解决初学者在学习flexbox时遇到的概念陷阱，帮助初学者很好的理解和学习flexbox。">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Zr的博客" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Zr的博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form" method="GET" action="https://www.baidu.com/s?">
+    <input name="wd" type="text" class="search-form-input" placeholder="搜索" />
+    <button type="submit" class="search-form-submit"></button>
+</form>
+<script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:jiankafei.github.io ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <form class="search-form" method="GET" action="https://www.baidu.com/s?">
+    <input name="wd" type="text" class="search-form-input" placeholder="搜索" />
+    <button type="submit" class="search-form-submit"></button>
+</form>
+<script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:jiankafei.github.io ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Zr</h2>
+            <h3 id="title">Web Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>XianYang, China</span>
+            <a id="follow" target="_blank" href="https://github.com/jiankafei">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                3
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                3
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-flex布局解析" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            flex布局解析
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/css/flexLayout/">
+            <time datetime="2016-08-12T00:15:29.000Z" itemprop="datePublished">2016-08-12</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/css/">css</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/css/">css</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>flexbox的发展还是比较曲折的，总共经历了三个版本，旧版本，过度版本，新版本。想想都可怕。这是我在学习flexbox盒模型后，对它的理解，希望能解决初学者在学习flexbox时遇到的概念陷阱，帮助初学者很好的理解和学习flexbox。<br><a id="more"></a></p>
+<h2 id="看法"><a href="#看法" class="headerlink" title="看法"></a>看法</h2><p>这里我只说说最新版本，在我看来，学习即将不再使用的东西是对时间和精力的浪费(个人观点，不喜勿喷)，旧的东西大家如果想了解可以度娘。虽然我不说旧版本，但我还是会给出完整的兼容实现。具体见我的这个项目<a href="https://github.com/jiankafei/flexible" target="_blank" rel="noopener">flexible</a>的flexbox.css。</p>
+<h2 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h2><h3 id="flexbox盒模型"><a href="#flexbox盒模型" class="headerlink" title="flexbox盒模型"></a>flexbox盒模型</h3><p>该盒模型，你只需知道有主轴和侧轴之分就行，没有横轴和竖轴或者水平和垂直之说。<br>那怎么区分主轴和侧轴呢，见下方。</p>
+<h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-direction: row | row-reverse | column | column-reverse</span><br></pre></td></tr></table></figure>
+<p>一句话，该属性设置的方向就是主轴，和主轴垂直的方向那就是侧轴了。<br>这里需要说一点，就是每一个轴都有两个方向。默认从左到右，从上到下，标准的坐标系。<br>现在主轴和侧轴都确定了，但如果内容比较多，你想让它换行，怎么办呢，不急，看下面。</p>
+<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-wrap：nowrap | wrap | wrap-reverse</span><br></pre></td></tr></table></figure>
+<p>该属性就是 flex 盒模型里的换行属性。三个值我就不解释了，自己查单词去。<br>既然有了换行，那就说明会有多行，如果有个场景需要让多行的元素块在定高的盒子里上下居中，怎么办呢，很显然这说的时对齐方式了。看下面。</p>
+<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>主轴对齐方式<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">justify-content：flex-start | flex-end | center | space-between | space-around</span><br></pre></td></tr></table></figure></p>
+<p>这个真没什么可解释的</p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>侧轴对齐方式<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-content：flex-start | flex-end | center | space-between | space-around | stretch</span><br></pre></td></tr></table></figure></p>
+<p>这里唯一需要说的就是 stretch<br>stretch 的作用是，在侧轴间距上，将各行均匀伸展来撑满真个侧轴间距。具体分两种情况。<br>如果剩余的空间是负数，该值等效于’flex-start’；<br>在其它情况下，剩余空间被所有行平分，以扩大它们的侧轴尺寸。</p>
+<p>在侧轴的对齐上，align-content 只解决了把侧轴里多行看成整体在盒子内的对齐；<br>而侧轴里的每一行上元素的高度不一定是一致的，有的高有的低，该行的行高肯定就是最高元素的高度了。这里我们称为行内轴，有些场景就需要在一行里这些元素是如何对齐的，也就是在行内轴上是如何对齐的，这有点像 vertical-align（只是有点像，不要混为一谈）。是在本行内开始位置对齐，还是中部对齐，还是结束对齐等等（由flex-direction决定哪里是开始位置）</p>
+<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-items：flex-start | flex-end | center | baseline | stretch</span><br></pre></td></tr></table></figure>
+<p>这里说下 baseline<br>    如果弹性盒子元素的行内轴与侧轴为同一条，则该值与’flex-start’等效。其它情况下，该值将参与基线对齐。</p>
+<p>还有 stretch<br>    会遵照’min/max-width/height’属性的限制</p>
+<p>到现在，侧轴和行内轴的对齐都解决了，但有些人说行内轴对齐好了，但我想让一行中的某一个元素的对齐方式和其他的元素不一样，该怎么办呢，看下面。</p>
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-self：auto | flex-start | flex-end | center | baseline | stretch</span><br></pre></td></tr></table></figure>
+<p>这个属性的值和上一个的一模一样，是对行内轴对齐方式的复写，但是只应用在子元素上，从而单独复写对齐方式。</p>
+<p>ok，现在换行，对齐，子元素单独对齐都好了，那为什么还叫伸缩盒模型呢，那是因为下面。</p>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>这个属性其实是个简写属性，具体是 flex-grow flex-shrink flex-basis 的简写属性</p>
+<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p>扩展比率，默认 0<br>没什么可说的，就是个数学问题</p>
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>收缩比率，不允许负值，默认 1<br>没什么可说的，就是个数学问题</p>
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-basis: &lt;length&gt; | &lt;percentage&gt; | auto | content</span><br></pre></td></tr></table></figure>
+<p>基准宽度，就是说在此宽度的基础上扩展或收缩宽度<br>这里说下 auto： 无特定宽度值，取决于其它属性值<br>还有 content：基于内容自动计算宽度</p>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>和它的名字一样，掌管盒子内子元素的流动，就和水一样，流向哪个方向，遇到石头是冲过去还是拐弯，都是这个属性的事情。<br>废话不说了，该属性也是个简写属性，是 flex-direction 和 flex-wrap 的简写属性。没了。</p>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>记得小时候每次开学，都会有一次排队选座位的经历，老师显然大家自觉排好，然后老师再仔细看一遍，把没排好同学互换过来，然后分座位。排队很简单，错了可以再排，但如果时html元素呢，如果我们把元素的顺序都写好了， 在没有定位，浮动，js操作的情况下，元素肯定是按顺序排列的，如果我们想互换元素之间的顺序，是做不到的。那如果有这样的需求怎么办呢。这就要order上场了，首先 display: flex 搭好台子，order就可以表演了。通过对flex子元素设置order属性，可以改变元素原来的显示顺序。当然它也受 flex-direction 的影响。<br>具体规则是：<br>用整数值来定义排列顺序，数值小的排在前面。可以为负值。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/web/Full link optimization at the front end/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Web全链路优化
+                
+            </div>
+        </a>
+    
+    
+        <a href="/js/flexible/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">移动端web高清屏显示及伸缩布局方案(原创)</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/web/Full link optimization at the front end/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/web/">web</a></p>
+                            <p class="item-title"><a href="/web/Full link optimization at the front end/" class="title">Web全链路优化</a></p>
+                            <p class="item-date"><time datetime="2017-11-21T03:52:15.000Z" itemprop="datePublished">2017-11-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/css/flexLayout/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/css/">css</a></p>
+                            <p class="item-title"><a href="/css/flexLayout/" class="title">flex布局解析</a></p>
+                            <p class="item-date"><time datetime="2016-08-12T00:15:29.000Z" itemprop="datePublished">2016-08-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/js/flexible/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/js/">js</a></p>
+                            <p class="item-title"><a href="/js/flexible/" class="title">移动端web高清屏显示及伸缩布局方案(原创)</a></p>
+                            <p class="item-date"><time datetime="2016-08-11T02:41:29.000Z" itemprop="datePublished">2016-08-11</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/web/" style="font-size: 10px;">web</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 王勒<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

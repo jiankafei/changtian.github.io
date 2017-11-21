@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>移动端web高清屏显示及伸缩布局方案(原创) | Zr的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前言该解决方案包含的技术有：传统的rem移动端布局；动态修改meta标签实现不同dpr设备的页面缩放；flex弹性布局；媒体查询加载相应倍图；Img的srcset；background的image-set；svg图标系统；">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端web高清屏显示及伸缩布局方案(原创)">
+<meta property="og:url" content="https://jiankafei.github.io/js/flexible/index.html">
+<meta property="og:site_name" content="Zr的博客">
+<meta property="og:description" content="前言该解决方案包含的技术有：传统的rem移动端布局；动态修改meta标签实现不同dpr设备的页面缩放；flex弹性布局；媒体查询加载相应倍图；Img的srcset；background的image-set；svg图标系统；">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-21T04:25:00.920Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端web高清屏显示及伸缩布局方案(原创)">
+<meta name="twitter:description" content="前言该解决方案包含的技术有：传统的rem移动端布局；动态修改meta标签实现不同dpr设备的页面缩放；flex弹性布局；媒体查询加载相应倍图；Img的srcset；background的image-set；svg图标系统；">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Zr的博客" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Zr的博客</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form" method="GET" action="https://www.baidu.com/s?">
+    <input name="wd" type="text" class="search-form-input" placeholder="搜索" />
+    <button type="submit" class="search-form-submit"></button>
+</form>
+<script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:jiankafei.github.io ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <form class="search-form" method="GET" action="https://www.baidu.com/s?">
+    <input name="wd" type="text" class="search-form-input" placeholder="搜索" />
+    <button type="submit" class="search-form-submit"></button>
+</form>
+<script>
+(function ($) {
+    $('.search-form').on('submit', function (e) {
+        var keyword = $('.search-form-input[name="wd"]').val();
+        window.location = 'https://www.baidu.com/s?wd=site:jiankafei.github.io ' + keyword;
+        return false;
+    });
+})(jQuery);
+</script>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Zr</h2>
+            <h3 id="title">Web Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>XianYang, China</span>
+            <a id="follow" target="_blank" href="https://github.com/jiankafei">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                3
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                3
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-移动端web高清屏显示及伸缩布局方案" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            移动端web高清屏显示及伸缩布局方案(原创)
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/js/flexible/">
+            <time datetime="2016-08-11T02:41:29.000Z" itemprop="datePublished">2016-08-11</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/js/">js</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/js/">js</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>该解决方案包含的技术有：传统的rem移动端布局；动态修改meta标签实现不同dpr设备的页面缩放；flex弹性布局；媒体查询加载相应倍图；Img的srcset；background的image-set；svg图标系统；</p>
+<a id="more"></a>
+<p>这个方案我是在网上看了关于 viewport 缩放页面后，结合当前使用的rem布局方案而来。<br>你有没有在移动H5开发的时候遇到过这样的情况，页面不清晰，明明1px的线条看上去却很宽，而且有些模糊，图片看上去好像失真了一样？和大厂的m站一比，光看自己页面的细节就土的掉渣。遇到过，那就说明你用的移动设备的屏幕是高清屏，也就是dpr大于1的屏幕。而这一切都是拜 乔帮主(你知道是哪位) 所赐。我这里只是简单的介绍，本来也想详细的说说，但感觉自己的语言组织不是太给力，所以还是推荐大家直接看参考文章，这些文章都很值得大家好好看的，里面图文并茂，该有的不该有的都有。</p>
+<h2 id="传统的一种移动端布局方案"><a href="#传统的一种移动端布局方案" class="headerlink" title="传统的一种移动端布局方案"></a>传统的一种移动端布局方案</h2><p>w: 当前页面宽度<br>x: 当前字体大小</p>
+<p>换算关系:<br>w / 640 = x / 100</p>
+<p>所有的px尺寸都除以100，就得到rem的尺寸</p>
+<h2 id="解决什么问题"><a href="#解决什么问题" class="headerlink" title="解决什么问题"></a>解决什么问题</h2><pre><code>border: 1px问题;
+图片高清问题;
+屏幕适配布局问题;
+</code></pre><h2 id="用到的知识点"><a href="#用到的知识点" class="headerlink" title="用到的知识点"></a>用到的知识点</h2><h3 id="设备像素比dpr"><a href="#设备像素比dpr" class="headerlink" title="设备像素比dpr"></a>设备像素比dpr</h3><pre><code>dpr = 物理像素 / 设备独立像素;
+</code></pre><p>参考文章：<br><a href="http://www.zhangxinxu.com/wordpress/?p=2568" target="_blank" rel="noopener">设备像素比devicePixelRatio简单介绍</a><br><a href="http://sentsin.com/web/1212.html" target="_blank" rel="noopener">原创移动端高清、多屏适配方案</a></p>
+<h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h3><meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+<h3 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h3><p>关于flex布局可以看下我的这篇文章：<a href="https://jiankafei.github.io/css/flexLayout/">flex布局解析</a></p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><h3 id="flex解决布局适配问题"><a href="#flex解决布局适配问题" class="headerlink" title="flex解决布局适配问题"></a>flex解决布局适配问题</h3><p>参见 <a href="https://github.com/jiankafei/flexible" target="_blank" rel="noopener">flexible项目</a> 的flexible.css</p>
+<h3 id="动态修改meta标签实现页面的缩放"><a href="#动态修改meta标签实现页面的缩放" class="headerlink" title="动态修改meta标签实现页面的缩放"></a>动态修改meta标签实现页面的缩放</h3><p>参见 <a href="https://github.com/jiankafei/flexible" target="_blank" rel="noopener">flexible项目</a> 的flexible.js</p>
+<h3 id="高清图片"><a href="#高清图片" class="headerlink" title="高清图片"></a>高清图片</h3><h4 id="SVG-图标系统"><a href="#SVG-图标系统" class="headerlink" title="SVG 图标系统"></a>SVG 图标系统</h4><p>可以解决小icon的高清适配问题，因为SVG是矢量图，缩放不会失真;<br>建议通过 <a href="http://www.iconfont.cn/plus" target="_blank" rel="noopener">iconfont</a> 制作<br>这里有一个在线的 <a href="https://jakearchibald.github.io/svgomg/" target="_blank" rel="noopener">svg压缩工具</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 定义 */</span><br><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">style</span>=<span class="string">"display: none"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">symbol</span> <span class="attr">id</span>=<span class="string">"icon"</span> <span class="attr">viewBox</span>=<span class="string">"0 0 200 200"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>opt<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">symbol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line"></span><br><span class="line">/* 使用 */</span><br><span class="line"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">use</span> <span class="attr">xlink:href</span>=<span class="string">"#icon"</span>&gt;</span><span class="tag">&lt;/<span class="name">use</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="iconfont"><a href="#iconfont" class="headerlink" title="iconfont"></a>iconfont</h4><p>可以解决 <code>icon</code> 的高清适配问题，建议通过 <a href="http://www.iconfont.cn/plus" target="_blank" rel="noopener">iconfont</a> 制作</p>
+<h4 id="MediaQuery"><a href="#MediaQuery" class="headerlink" title="MediaQuery"></a>MediaQuery</h4><p><code>MediaQuery</code> 可以解决背景图片的高清适配;</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">media</span> only screen</span><br><span class="line">and (-webkit-device-pixel-ratio:<span class="number">2</span>)</span><br><span class="line">and (-webkit-min-device-pixel-ratio:<span class="number">1.5</span>)</span><br><span class="line">and (-webkit-max-device-pixel-ratio:<span class="number">2.5</span>)&#123;</span><br><span class="line">	<span class="selector-tag">background</span>: <span class="selector-tag">url</span>(<span class="selector-tag">icon_2</span>@.<span class="keyword">png</span>) no-repeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="CSS的image-set属性"><a href="#CSS的image-set属性" class="headerlink" title="CSS的image-set属性"></a>CSS的image-set属性</h4><p>image-set属性可以解决背景图片的高清适配;<br>目前移动端可以使用带 -webkit- 前缀的属性，Android4.4及以上系统，IOS9.0及以上系统;<br>可在 <a href="http://www.caniuse.com/#search=image-set" target="_blank" rel="noopener">caniuse</a> 查看该属性目前的支持情况;</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">	<span class="comment">/* 不支持image-set的浏览器 */</span></span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(icon_1@.png) no-repeat;</span><br><span class="line">	<span class="comment">/* 支持image-set的浏览器 */</span></span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">-webkit-image-set</span>(</span><br><span class="line">		url(icon_1@.png) <span class="number">1</span>x, <span class="comment">/* 普通屏 */</span></span><br><span class="line">		<span class="built_in">url</span>(icon_2@.png) <span class="number">2</span>x <span class="comment">/* 高清屏 */</span></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="图片延迟加载"><a href="#图片延迟加载" class="headerlink" title="图片延迟加载"></a>图片延迟加载</h4><p>移动端的图片延迟加载在我看来很必要的，而且顺带可以解决图片的高清适配;<br>通过 <code>window.devicePixelRatio</code> 可以获取到当前设备的dpr，然后加载相应的图片。</p>
+<h4 id="img的srcset和sizes属性"><a href="#img的srcset和sizes属性" class="headerlink" title="img的srcset和sizes属性"></a>img的srcset和sizes属性</h4><p><img src="" srcset="" sizes=""><br>解决图片的高清适配，具体还是看<a href="http://www.zhangxinxu.com/wordpress/2014/10/responsive-images-srcset-size-w-descriptor/" target="_blank" rel="noopener">张鑫旭张老师的这篇文章</a></p>
+<p>转载请注明出处：<a href="https://jiankafei.github.io/js/flexible/">移动端web高清屏显示及伸缩布局方案</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/css/flexLayout/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    flex布局解析
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/web/Full link optimization at the front end/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/web/">web</a></p>
+                            <p class="item-title"><a href="/web/Full link optimization at the front end/" class="title">Web全链路优化</a></p>
+                            <p class="item-date"><time datetime="2017-11-21T03:52:15.000Z" itemprop="datePublished">2017-11-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/css/flexLayout/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/css/">css</a></p>
+                            <p class="item-title"><a href="/css/flexLayout/" class="title">flex布局解析</a></p>
+                            <p class="item-date"><time datetime="2016-08-12T00:15:29.000Z" itemprop="datePublished">2016-08-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/js/flexible/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/js/">js</a></p>
+                            <p class="item-title"><a href="/js/flexible/" class="title">移动端web高清屏显示及伸缩布局方案(原创)</a></p>
+                            <p class="item-date"><time datetime="2016-08-11T02:41:29.000Z" itemprop="datePublished">2016-08-11</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/web/" style="font-size: 10px;">web</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 王勒<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
