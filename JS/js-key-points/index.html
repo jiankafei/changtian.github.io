@@ -13,12 +13,12 @@
 <meta property="og:site_name" content="Zr的博客">
 <meta property="og:description" content="前言对JS学习过程中的一些理解和总结">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://jiankafei.github.io/JS/image/JS_OOP.png">
-<meta property="og:updated_time" content="2017-12-08T13:03:15.993Z">
+<meta property="og:image" content="https://jiankafei.github.io/image/JS_OOP.png">
+<meta property="og:updated_time" content="2017-12-08T13:07:02.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS要点解析">
 <meta name="twitter:description" content="前言对JS学习过程中的一些理解和总结">
-<meta name="twitter:image" content="https://jiankafei.github.io/JS/image/JS_OOP.png">
+<meta name="twitter:image" content="https://jiankafei.github.io/image/JS_OOP.png">
     
 
     
@@ -282,7 +282,7 @@
 <p>对象里最重要的当属原型和原型链了。原型是什么，原型就是个普通对象。原型链是什么，原型链用于属性查找（函数的作用域链用于变量查找），自身没有的属性沿着原型链一直往上找，直至找到。所以，最重要的其实是原型链。最需要了解的就是JS的面向对象编程了，因为它能很好的让人们了解原型及原型链。</p>
 <p>JS使用原型链来实现面向对象编程。JS使用构造函数来构造对象，好多人喜欢把构造函数叫做类，构造函数就是个普通的函数。</p>
 <p>为了节约书写时间，我这里直接使用类来表示构造函数（大家都懂的，JS没有类）。在讨论类之前，我先说说和函数有关的一个东西，使用函数来说比较好。JS里任何函数的定义，都会创建一个函数的伴生对象（我自己起的名），这个伴生对象就是构造新对象时的原型。这个图能很好的说明它们之间的关系:</p>
-<p><img src="../image/JS_OOP.png" alt="JS面向对象"></p>
+<p><img src="/image/JS_OOP.png" alt="JS面向对象"></p>
 <p>图片说明：图片中new括起来的区域，是我自己想的过程，和真实的new的结果一样，这里只是为了做个说明，但不代表JS真实的new操作。</p>
 <p>对象的方法都是函数，由于函数的复用性，所以没有必要都拥有各自的方法，但是属性是用来表示对象自身的状态的，所以各自的属性应该是独立的（不说例外情况）</p>
 <p>基于以上，构造对象的包括工厂函数模式，构造函数模式，原型模式这里就不说了，大家都知道构造加原型模式，所以这里也不说了，都快嚼烂了。</p>
