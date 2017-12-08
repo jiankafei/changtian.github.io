@@ -13,10 +13,12 @@
 <meta property="og:site_name" content="Zr的博客">
 <meta property="og:description" content="前言对JS学习过程中的一些理解和总结">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-08T12:44:42.871Z">
+<meta property="og:image" content="https://jiankafei.github.io/JS/image/JS_OOP.png">
+<meta property="og:updated_time" content="2017-12-08T12:53:34.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS要点解析">
 <meta name="twitter:description" content="前言对JS学习过程中的一些理解和总结">
+<meta name="twitter:image" content="https://jiankafei.github.io/JS/image/JS_OOP.png">
     
 
     
@@ -232,9 +234,11 @@
 <p>对于前端开发来说，JS的确是一门很有魔力的语言。它不需要静态类型语言对变量类型的严格要求，也不需要编译型语言需要编译才能真正执行（期间，学习了Go语言，真的很喜欢Go语言，也终于让我有理由学习后端开发了。虽然Node也可以，但使用JS写Node服务，真的不太舒服，后端还是需要静态类型语言来做才最合适），这让它在Web前端风生水起（我看过Dart的语法，出自Google，如Go般简洁，前端后端都有支持，很希望Dart能替代JS，但是看现在的情况是不可能了）。</p>
 <p>C语言等类C的静态编译型语言里面，程序要想执行，都会有一个入口函数main。但JS在html里面通过script的方式加载，script分割代码的分割问题，以及JS加载都是通过script为单位进行编译（JS的编译好像只有词法分析和语法分析）和执行的问题，致使js在标准上写不了main入口函数，所以JS提供了全局作用域这么个东西。相当于JS线程自己就有个main函数在跑一样。</p>
 <p>说到函数执行，这里就有几点需要提了。</p>
-<p>JS函数传参调用的方式：<br>传名调用 or 传值调用：<br>JS是传值调用的，对于初学JS的小白来说，这让他们很矛盾。因为他们知道JS有基本类型，有引用类型。引用类型当作参数传入函数调用，如果按传值调用，引用类型传入的又是什么呢？传入的是引用类型的指针，又称内存地址，在JS里统一叫引用，也就是说JS不会把引用类型传过去（真传过去了，就是另一个对象了），而是把地址当作值传过去。<br>这里要说的一点是，JS函数传参后，arguments 和形参的关系：<br>如果函数调用时，相应的位置传入了实参，那么 arguments 和形参是互相影响的，也就是说，修改了一个，另一个也会相应的更改，并且是严格相等的。如果相应位置没有传入实参，则他们 arguments 和形参之间是互相独立的。至少在chrome上测试是这样的。</p>
+<p>JS函数传参调用的方式：<br>传名调用 or 传值调用：<br>JS是传值调用的，对于初学JS的小白来说，这让他们很矛盾。因为他们知道JS有基本类型，有引用类型。引用类型当作参数传入函数调用，如果按传值调用，引用类型传入的又是什么呢？传入的是引用类型的指针，又称内存地址，在JS里统一叫引用，也就是说JS不会把引用类型传过去（真传过去了，就是另一个对象了），而是把地址当作值传过去。</p>
+<p>这里要说的一点是，JS函数传参后，arguments 和形参的关系：<br>如果函数调用时，相应的位置传入了实参，那么 arguments 和形参是互相影响的，也就是说，修改了一个，另一个也会相应的更改，并且是严格相等的。如果相应位置没有传入实参，则他们 arguments 和形参之间是互相独立的。至少在chrome上测试是这样的。</p>
 <p>JS在执行之前，也就是词法分析和语法分析之后，还有一个预解析，预解析做的事就是先提升var声明的变量，初始值为undefined，再提升function声明的函数（直接提升整个函数体）。其实可以这么理解，var和function提升的是变量的创建和初始化，只不过var的变量的初始值为undefined。let const class 等提升的是创建，但并没有提升初始化，而变量只有在初始化之后才可以使用，可以解释了let const 形成的暂时性死区，而且const 没有赋值操作。</p>
-<p>该轮到函数执行了。在JS主线程的函数执行会形成一个执行栈，函数里定义的变量就都在栈内存里存放着，基本类型保存的就是真实的基本类型的值，引用类型保存的就是引用类型的地址，而引用类型们都在堆内存里存放着。栈内存里变量的存放是有次序和有固定大小的，这也是为什么基本类型string boolean number 的值是不可更改的原因，如果有新值都是另外开辟新的内存来存放新值，至于引擎对基本类型的优化，应该就挺底层的了，我们也不要太过关注。堆内存里对象的存放都是没有结构次序，任意存放的，大小不固定的，所以可以修改对象的属性。<br>函数的执行链是个后入先出的过程，函数执行完毕后，它的执行栈会被弹出，也就是销毁，栈都没了，里面存放的变量自然就释放了。而堆内存里的引用类型们可不会因为函数执行完毕而销毁，它们会等待GC来回收他们。</p>
+<p>该轮到函数执行了。在JS主线程的函数执行会形成一个执行栈，函数里定义的变量就都在栈内存里存放着，基本类型保存的就是真实的基本类型的值，引用类型保存的就是引用类型的地址，而引用类型们都在堆内存里存放着。栈内存里变量的存放是有次序和有固定大小的，这也是为什么基本类型string boolean number 的值是不可更改的原因，如果有新值都是另外开辟新的内存来存放新值，至于引擎对基本类型的优化，应该就挺底层的了，我们也不要太过关注。堆内存里对象的存放都是没有结构次序，任意存放的，大小不固定的，所以可以修改对象的属性。</p>
+<p>函数的执行链是个后入先出的过程，函数执行完毕后，它的执行栈会被弹出，也就是销毁，栈都没了，里面存放的变量自然就释放了。而堆内存里的引用类型们可不会因为函数执行完毕而销毁，它们会等待GC来回收他们。</p>
 <p>GC回收引用类型，我知道的有两种方式，为了少些文字，我把引用类型在之后都叫做对象：</p>
 <ol>
 <li>引用计数：会标记变量或属性对对象的引用个数，如果引用个数为0，就是说它不在被使用，那将会在下一次垃圾回收中回收。但引用计数有循环引用的问题，导致对象无法被回收，A和B互相引用，但它们都没有被其他变量所引用，理应回收他们，计数方式就不能解决这个问题。</li>
@@ -254,7 +258,7 @@
 <li>把 {activation object} 添加到 [[scope]] 属性的顶部，也就是第一个。</li>
 <li>当执行完毕，释放[[scope]]，回收 {excution context]} {activation object}</li>
 </ol>
-<p>可以看出，函数在执行的时候，都有自己的作用域链属性。而且作用域链就是个活动对象数组（具体什么结构，我也不知道，也许是集合呢）。<br>但函数定义在什么地方是写死的，所以函数的 scopechain 永远是不会变的。这就是为什么叫做词法作用域。</p>
+<p>可以看出，函数在执行的时候，都有自己的作用域链属性。而且作用域链就是个活动对象数组（具体什么结构，我也不知道，也许是集合呢）。但函数定义在什么地方是写死的，所以函数的 scopechain 永远是不会变的。这就是为什么叫做词法作用域。</p>
 <p>这里做两个作用域链的示例：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="function"><span class="keyword">function</span> <span class="title">d</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">			d();</span><br><span class="line">		&#125;;</span><br><span class="line">		c();</span><br><span class="line">	&#125;;</span><br><span class="line">	b();</span><br><span class="line">&#125;;</span><br><span class="line">a();</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义 a.scopeChain = [window]</span></span><br><span class="line"><span class="comment">//执行 a.scope = [a, ...a.scopeChain]</span></span><br><span class="line"><span class="comment">//定义 b.scopeChain = a.scope</span></span><br><span class="line"><span class="comment">//执行 b.scope = [b, ...b.scopeChain]</span></span><br><span class="line"><span class="comment">//定义 c.scopeChain = b.scope</span></span><br><span class="line"><span class="comment">//执行 c.scope = [c, ...c.scopeChain]</span></span><br><span class="line"><span class="comment">//定义 d.scopeChain = c.scope</span></span><br><span class="line"><span class="comment">//执行 d.scope = [d, ...d.scopeChain]</span></span><br><span class="line"></span><br><span class="line">第二种：</span><br><span class="line">a()</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	b()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	c()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义 a.scopeChain = [window]</span></span><br><span class="line"><span class="comment">//定义 b.scopeChain = [window]</span></span><br><span class="line"><span class="comment">//定义 c.scopeChain = [window]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//执行 a.scope = [a, ...a.scopeChain];</span></span><br><span class="line"><span class="comment">//执行 b.scope = [b, ...b.scopeChain];</span></span><br><span class="line"><span class="comment">//执行 c.scope = [c, ...c.scopeChain];</span></span><br></pre></td></tr></table></figure>
 <p>等号右侧：</p>
@@ -277,7 +281,8 @@
 <p>刚学JS时我很在意浅拷贝这个概念，但没过多久，我就觉得这对JS来说就是个伪概念，而且现在还非常盛行。js所有的引用类型都是在堆内存里面，他们都是独立的，并不是我们表面上看到的，一个嵌套一个，他们的属性存放的都是值，如果本身的值为引用类型，那么这个值就是引用类型的地址。所以可以认为，在存储机制方面，js对象都是扁平化的。我自己想了这么个词，不同意的可以提issue交流。</p>
 <p>对象里最重要的当属原型和原型链了。原型是什么，原型就是个普通对象。原型链是什么，原型链用于属性查找（函数的作用域链用于变量查找），自身没有的属性沿着原型链一直往上找，直至找到。所以，最重要的其实是原型链。最需要了解的就是JS的面向对象编程了，因为它能很好的让人们了解原型及原型链。</p>
 <p>JS使用原型链来实现面向对象编程。JS使用构造函数来构造对象，好多人喜欢把构造函数叫做类，构造函数就是个普通的函数。</p>
-<p>为了节约书写时间，我这里直接使用类来表示构造函数（大家都懂的，JS没有类）。在讨论类之前，我先说说和函数有关的一个东西，使用函数来说比较好。JS里任何函数的定义，都会创建一个函数的伴生对象（我自己起的名），这个伴生对象就是构造新对象时的原型。这个图能很好的说明它们之间的关系:<a href="../image/JS_OOP.png">JS面向对象</a></p>
+<p>为了节约书写时间，我这里直接使用类来表示构造函数（大家都懂的，JS没有类）。在讨论类之前，我先说说和函数有关的一个东西，使用函数来说比较好。JS里任何函数的定义，都会创建一个函数的伴生对象（我自己起的名），这个伴生对象就是构造新对象时的原型。这个图能很好的说明它们之间的关系:</p>
+<p><img src="../image/JS_OOP.png" alt="JS面向对象"></p>
 <p>图片说明：图片中new括起来的区域，是我自己想的过程，和真实的new的结果一样，这里只是为了做个说明，但不代表JS真实的new操作。</p>
 <p>对象的方法都是函数，由于函数的复用性，所以没有必要都拥有各自的方法，但是属性是用来表示对象自身的状态的，所以各自的属性应该是独立的（不说例外情况）</p>
 <p>基于以上，构造对象的包括工厂函数模式，构造函数模式，原型模式这里就不说了，大家都知道构造加原型模式，所以这里也不说了，都快嚼烂了。</p>
