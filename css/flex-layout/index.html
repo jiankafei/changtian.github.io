@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Zr的博客">
 <meta property="og:description" content="前言flexbox的发展还是比较曲折的，总共经历了三个版本，旧版本，过度版本，新版本。想想都可怕。这是我在学习flexbox盒模型后，对它的理解，希望能解决初学者在学习flexbox时遇到的概念陷阱，帮助初学者很好的理解和学习flexbox。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-08T13:02:25.171Z">
+<meta property="og:updated_time" content="2017-12-16T05:24:40.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flex布局解析">
 <meta name="twitter:description" content="前言flexbox的发展还是比较曲折的，总共经历了三个版本，旧版本，过度版本，新版本。想想都可怕。这是我在学习flexbox盒模型后，对它的理解，希望能解决初学者在学习flexbox时遇到的概念陷阱，帮助初学者很好的理解和学习flexbox。">
@@ -232,15 +232,16 @@
 <h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-direction: row | row-reverse | column | column-reverse</span><br></pre></td></tr></table></figure>
 <p>一句话，该属性设置的方向就是主轴，和主轴垂直的方向那就是侧轴了。<br>这里需要说一点，就是每一个轴都有两个方向。默认从左到右，从上到下，标准的坐标系。<br>现在主轴和侧轴都确定了，但如果内容比较多，你想让它换行，怎么办呢，不急，看下面。</p>
 <h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-wrap：nowrap | wrap | wrap-reverse</span><br></pre></td></tr></table></figure>
-<p>该属性就是 flex 盒模型里的换行属性。三个值我就不解释了，自己查单词去。<br>既然有了换行，那就说明会有多行，如果有个场景需要让多行的元素块在定高的盒子里上下居中，怎么办呢，很显然这说的时对齐方式了。看下面。</p>
-<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>主轴对齐方式<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">justify-content：flex-start | flex-end | center | space-between | space-around</span><br></pre></td></tr></table></figure></p>
-<p>这个真没什么可解释的</p>
-<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>侧轴对齐方式<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-content：flex-start | flex-end | center | space-between | space-around | stretch</span><br></pre></td></tr></table></figure></p>
-<p>这里唯一需要说的就是 stretch<br>stretch 的作用是，在侧轴间距上，将各行均匀伸展来撑满真个侧轴间距。具体分两种情况。<br>如果剩余的空间是负数，该值等效于’flex-start’；<br>在其它情况下，剩余空间被所有行平分，以扩大它们的侧轴尺寸。</p>
+<p>该属性就是 flex 盒模型里的换行属性。三个值我就不解释了，自己查单词去。<br>下面就说下如何对齐子元素。</p>
+<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>主轴对齐方式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">justify-content：flex-start | flex-end | center | space-between | space-around</span><br></pre></td></tr></table></figure>
+<p>这里说两个属性值<br>space-between 表示子元素之间间距相等，撑满整个主轴。如果子元素只有一个，则相当于flex-start<br>space-around 表示每一个子元素的两端分配相同的空间，然后收尾相连，撑满整个主轴。如果子元素只有一个，则相当于center</p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>侧轴对齐方式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-content：flex-start | flex-end | center | space-between | space-around | stretch</span><br></pre></td></tr></table></figure>
+<p>这里唯一需要说的就是 stretch<br>stretch 的作用是，在侧轴间距上，将各行均匀伸展来撑满真个侧轴间距。具体分两种情况：<br>如果剩余的空间是负数，该值等效于’flex-start’；<br>在其它情况下，剩余空间被所有行平分，以扩大它们的侧轴尺寸。</p>
 <p>在侧轴的对齐上，align-content 只解决了把侧轴里多行看成整体在盒子内的对齐；<br>而侧轴里的每一行上元素的高度不一定是一致的，有的高有的低，该行的行高肯定就是最高元素的高度了。这里我们称为行内轴，有些场景就需要在一行里这些元素是如何对齐的，也就是在行内轴上是如何对齐的，这有点像 vertical-align（只是有点像，不要混为一谈）。是在本行内开始位置对齐，还是中部对齐，还是结束对齐等等（由flex-direction决定哪里是开始位置）</p>
 <h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-items：flex-start | flex-end | center | baseline | stretch</span><br></pre></td></tr></table></figure>
-<p>这里说下 baseline<br>    如果弹性盒子元素的行内轴与侧轴为同一条，则该值与’flex-start’等效。其它情况下，该值将参与基线对齐。</p>
-<p>还有 stretch<br>    会遵照’min/max-width/height’属性的限制</p>
+<p>这里说两个属性值<br>baseline，如果弹性盒子元素的行内轴与侧轴为同一条，则该值与’flex-start’等效。其它情况下，该值将参与baseline对齐。<br>stretch 会遵照 ‘min/max-width/height’ 属性的限制</p>
 <p>到现在，侧轴和行内轴的对齐都解决了，但有些人说行内轴对齐好了，但我想让一行中的某一个元素的对齐方式和其他的元素不一样，该怎么办呢，看下面。</p>
 <h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">align-self：auto | flex-start | flex-end | center | baseline | stretch</span><br></pre></td></tr></table></figure>
 <p>这个属性的值和上一个的一模一样，是对行内轴对齐方式的复写，但是只应用在子元素上，从而单独复写对齐方式。</p>
@@ -250,8 +251,8 @@
 <h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>收缩比率，不允许负值，默认 1<br>没什么可说的，就是个数学问题</p>
 <h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-basis: &lt;length&gt; | &lt;percentage&gt; | auto | content</span><br></pre></td></tr></table></figure>
 <p>基准宽度，就是说在此宽度的基础上扩展或收缩宽度<br>这里说下 auto： 无特定宽度值，取决于其它属性值<br>还有 content：基于内容自动计算宽度</p>
-<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>和它的名字一样，掌管盒子内子元素的流动，就和水一样，流向哪个方向，遇到石头是冲过去还是拐弯，都是这个属性的事情。<br>废话不说了，该属性也是个简写属性，是 flex-direction 和 flex-wrap 的简写属性。没了。</p>
-<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>记得小时候每次开学，都会有一次排队选座位的经历，老师显然大家自觉排好，然后老师再仔细看一遍，把没排好同学互换过来，然后分座位。排队很简单，错了可以再排，但如果时html元素呢，如果我们把元素的顺序都写好了， 在没有定位，浮动，js操作的情况下，元素肯定是按顺序排列的，如果我们想互换元素之间的顺序，是做不到的。那如果有这样的需求怎么办呢。这就要order上场了，首先 display: flex 搭好台子，order就可以表演了。通过对flex子元素设置order属性，可以改变元素原来的显示顺序。当然它也受 flex-direction 的影响。<br>具体规则是：<br>用整数值来定义排列顺序，数值小的排在前面。可以为负值。</p>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>和它的名字一样，掌管盒子内子元素的流动，就像水一样，流向哪个方向，遇到石头是冲过去还是拐弯，都是这个属性的事情。<br>废话不说了，该属性也是个简写属性，是 flex-direction 和 flex-wrap 的简写属性。</p>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>记得小时候每次开学，都会有一次排队选座位的经历，老师显然大家自觉排好，然后老师再仔细看一遍，把没排好同学互换过来，然后分座位。排队很简单，错了可以再排，但如果时html元素呢，如果我们把元素的顺序都写好了，在没有定位，浮动，js操作的情况下，元素肯定是按顺序排列的，如果我们想互换元素之间的顺序，是做不到的。那如果有这样的需求怎么办呢。这就要order上场了，首先 display: flex 搭好台子，order就可以表演了。通过对flex子元素设置order属性，可以改变元素原来的显示顺序。当然它也受 flex-direction 的影响。<br>具体规则是：<br>用整数值来定义排列顺序，数值小的排在前面。可以为负值。</p>
 
         
         </div>
