@@ -14,7 +14,7 @@
 <meta property="og:description" content="前言对JS学习过程中的一些理解和总结">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://jiankafei.github.io/image/JS_OOP.png">
-<meta property="og:updated_time" content="2017-12-25T01:42:17.016Z">
+<meta property="og:updated_time" content="2017-12-25T02:35:43.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS要点解析">
 <meta name="twitter:description" content="前言对JS学习过程中的一些理解和总结">
@@ -308,12 +308,12 @@
 <p>开发者自己在使用严格模式的时候，不要把 ‘use strict’ 使用在全局，只使用在自己的代码最外层函数里，因为你的代码不应该影响别人的代码，而且如果别人没使用严格模式，全局模式使用就可能会报错。</p>
 <p>最后说下 EventLoop:</p>
 <p>JS是一门运行于宿主环境的脚本语言，宿主环境很多，浏览器，Node等等。JS执行通过JS引擎编译和执行。JS在执行上是单线程的，但JS有很多操作不是立刻就能有结果的，比如说ajax setTimeout click等事件，所以如果JS所有的操作都在单线程上执行，ajax的操作势必会造成阻塞，所以JS利用事件和宿主环境提供的 任务队列 解决了这个问题。</p>
-<p>具体是怎样的呢？页面加载JS，执行JS开始，JS的主线程就开始运行了，当页面所有script标签里的代码都解析和执行完，那么主线程的执行就完了。这时主线程会一直处于等待状态。直到任务队列里有待执行的事件回掉了，就会把任务队列里的函数执行放入主线程执行，执行完毕后，又会查看任务队列里还有没有需要执行的事件回掉，整个过程就这样循环。所以说，JS主线程只会执行同步代码，对于异步代码，其实也是当同步代码对待，执行后就直接跃过去执行下面的代码了，但异步代码会开启相应的浏览器线程来执行相应的任务，待任务执行完毕，就会把回掉函数的执行放入任务队列，并把执行结果传入，但这个回掉函数并不会执行（因为任务队列不属于JS引擎，执行不了JS），只有在主线程空闲下来，才会从任务队列取出函数执行放入主线程执行。任务队列是一个先入先出的堆结构。</p>
-<p>自从ES6引入了 Promise 等新异步对象后，任务队列有添了新成员，这个任务队列称为 microtask(微任务队列)，以前哪个叫 macrotask(宏任务队列)，主线程执行完毕后，会先从 microtask 获取任务执行，直到队列为空才会获取 macrotask 里的任务执行。</p>
+<p>具体是怎样的呢？页面加载JS，执行JS开始，JS的主线程就开始运行了，当页面所有script标签里的代码都解析和执行完，那么主线程的执行就完了。这时主线程会一直处于等待状态。直到任务队列里有待执行的事件回掉了，就会把任务队列里的函数执行放入主线程执行，执行完毕后，又会查看任务队列里还有没有需要执行的事件回掉，整个过程就这样循环。所以说，JS主线程只会执行同步代码，对于异步代码，其实也是当同步代码对待，执行后就直接跃过去执行下面的代码了，但异步代码会开启相应的浏览器线程来执行相应的任务，待任务执行完毕，就会把回掉函数的执行放入任务队列，并把执行结果传入，但这个回掉函数并不会执行（因为任务队列不属于JS引擎，执行不了JS），只有在主线程空闲下来，才会从任务队列取出函数执行放入主线程执行。</p>
+<p>自从ES6引入了 Promise 等新异步对象后，任务队列又添了新成员，这个任务队列称为 microtask(微任务队列)，以前哪个叫 macrotask(宏任务队列)，主线程执行完毕后，会先从 microtask 获取任务执行，直到队列为空才会获取 macrotask 里的任务执行。</p>
 <p>microtask:</p>
 <p>Promise, MutationObserver</p>
 <p>macrotasks:</p>
-<p>setTimeout, setInterval, setImmediate, process.nextTick, event, I/O, UI rendering(不是DOM操作，DOM操作是同步的，渲染是异步的)</p>
+<p>setTimeout, setInterval, setImmediate, process.nextTick, event, I/O, UI rendering(不是DOM操作，DOM操作是同步的，渲染是异步的，这是浏览器的优化)</p>
 <p>就拿ajax来举例，当新建xhr对象，并注册好事件后，然后send发送。这个过程中，不是只有JS在执行的，还有一个网络线程在做发送数据和获取数据的事，等数据获取了，则该线程触发 onload 事件。然后把 onload(xhr.response) 放入 macrotask 队列，等待JS引擎来执行，主线程空了，并且该任务前面没有其他要执行的任务了，这时候就把该任务弹出任务队列放入JS主线程执行。</p>
 
         
