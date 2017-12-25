@@ -6,15 +6,15 @@
     <title>JS要点解析 | Zr的博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="前言对JS学习过程中的一些理解和总结">
-<meta name="keywords" content="JS">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS要点解析">
-<meta property="og:url" content="https://jiankafei.github.io/JS/js-key-points/index.html">
+<meta property="og:url" content="https://jiankafei.github.io/JavaScript/js-key-points/index.html">
 <meta property="og:site_name" content="Zr的博客">
 <meta property="og:description" content="前言对JS学习过程中的一些理解和总结">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://jiankafei.github.io/image/JS_OOP.png">
-<meta property="og:updated_time" content="2017-12-12T10:37:07.344Z">
+<meta property="og:updated_time" content="2017-12-25T01:28:51.050Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS要点解析">
 <meta name="twitter:description" content="前言对JS学习过程中的一些理解和总结">
@@ -155,7 +155,7 @@
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                4
+                3
                 <span>标签</span>
             </div>
         </div>
@@ -202,7 +202,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/JS/js-key-points/">
+        <a href="/JavaScript/js-key-points/">
             <time datetime="2017-12-04T09:17:19.000Z" itemprop="datePublished">2017-12-04</time>
         </a>
     </div>
@@ -211,13 +211,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/JS/">JS</a>
+        <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/JS/">JS</a>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>
     </div>
 
                     </div>
@@ -232,7 +232,7 @@
 <a id="more"></a>
 <p>从我工作到 2017/10 辞职，总共两年时间，期间一直想写个总结JS的文章，却一直没下决心动手，这次，借着辞职学习的时间，把这件事办了。也算是给自己一个交代。</p>
 <p>对于前端开发来说，JS的确是一门很有魔力的语言。它不需要静态类型语言对变量类型的严格要求，也不需要编译型语言需要编译才能真正执行（期间，学习了Go语言，真的很喜欢Go语言，也终于让我有理由学习后端开发了。虽然Node也可以，但使用JS写Node服务，真的不太舒服，后端还是需要静态类型语言来做才最合适），这让它在Web前端风生水起（我看过Dart的语法，出自Google，如Go般简洁，前端后端都有支持，很希望Dart能替代JS，但是看现在的情况是不可能了）。</p>
-<p>C语言等类C的静态编译型语言里面，程序要想执行，都会有一个入口函数main。但JS在html里面通过script的方式加载，script分割代码的分割问题，以及JS加载都是通过script为单位进行编译（JS的编译好像只有词法分析和语法分析）和执行的问题，致使js在标准上写不了main入口函数，所以JS提供了全局作用域这么个东西。相当于JS线程自己就有个main函数在跑一样。</p>
+<p>C语言等类C的静态编译型语言里面，程序要想执行，都会有一个入口函数main。但JS在html里面通过script的方式加载，script分割代码的分割问题，以及JS加载都是通过script为单位进行编译（JS的编译好像只有词法分析和语法分析）和执行的问题，致使js在标准上写不了main入口函数，所以JS提供了全局作用域这么个东西。相当于JS线程自己就有个main函数在跑一样。还有一点，每个script标签的代码执行是独立的，前一个报错，不会影响下一个的执行。</p>
 <p>说到函数执行，这里就有几点需要提了。</p>
 <p>JS函数传参调用的方式：<br>传名调用 or 传值调用：<br>JS是传值调用的，对于初学JS的小白来说，这让他们很矛盾。因为他们知道JS有基本类型，有引用类型。引用类型当作参数传入函数调用，如果按传值调用，引用类型传入的又是什么呢？传入的是引用类型的指针，又称内存地址，在JS里统一叫引用，也就是说JS不会把引用类型传过去（真传过去了，就是另一个对象了），而是把地址当作值传过去。</p>
 <p>这里要说的一点是，JS函数传参后，arguments 和形参的关系：<br>如果函数调用时，相应的位置传入了实参，那么 arguments 和形参是互相影响的，也就是说，修改了一个，另一个也会相应的更改，并且是严格相等的。如果相应位置没有传入实参，则他们 arguments 和形参之间是互相独立的。至少在chrome上测试是这样的。</p>
@@ -368,7 +368,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 <nav id="article-nav">
     
     
-        <a href="/web/full-link-optimization/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/Web/full-link-optimization/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
             <div class="article-nav-title">Web全链路优化</div>
         </a>
@@ -395,7 +395,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/JS/js-key-points/" class="thumbnail">
+                            <a href="/JavaScript/js-key-points/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -405,8 +405,8 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/JS/">JS</a></p>
-                            <p class="item-title"><a href="/JS/js-key-points/" class="title">JS要点解析</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/JavaScript/js-key-points/" class="title">JS要点解析</a></p>
                             <p class="item-date"><time datetime="2017-12-04T09:17:19.000Z" itemprop="datePublished">2017-12-04</time></p>
                         </div>
                     </li>
@@ -414,7 +414,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/web/full-link-optimization/" class="thumbnail">
+                            <a href="/Web/full-link-optimization/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -424,8 +424,8 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/web/">web</a></p>
-                            <p class="item-title"><a href="/web/full-link-optimization/" class="title">Web全链路优化</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Web/">Web</a></p>
+                            <p class="item-title"><a href="/Web/full-link-optimization/" class="title">Web全链路优化</a></p>
                             <p class="item-date"><time datetime="2017-11-21T03:52:15.000Z" itemprop="datePublished">2017-11-21</time></p>
                         </div>
                     </li>
@@ -433,7 +433,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/css/flex-layout/" class="thumbnail">
+                            <a href="/CSS/flex-layout/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -443,8 +443,8 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/css/">css</a></p>
-                            <p class="item-title"><a href="/css/flex-layout/" class="title">flex布局解析</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/CSS/">CSS</a></p>
+                            <p class="item-title"><a href="/CSS/flex-layout/" class="title">flex布局解析</a></p>
                             <p class="item-date"><time datetime="2016-08-12T00:15:29.000Z" itemprop="datePublished">2016-08-12</time></p>
                         </div>
                     </li>
@@ -452,7 +452,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/js/flexible/" class="thumbnail">
+                            <a href="/JavaScript/flexible/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -462,8 +462,8 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/js/">js</a></p>
-                            <p class="item-title"><a href="/js/flexible/" class="title">移动端web高清屏显示及伸缩布局方案(原创)</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/JavaScript/">JavaScript</a></p>
+                            <p class="item-title"><a href="/JavaScript/flexible/" class="title">移动端web高清屏显示及伸缩布局方案(原创)</a></p>
                             <p class="item-date"><time datetime="2016-08-11T02:41:29.000Z" itemprop="datePublished">2016-08-11</time></p>
                         </div>
                     </li>
@@ -477,7 +477,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/js/">js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -495,7 +495,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -504,7 +504,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/JS/" style="font-size: 10px;">JS</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/web/" style="font-size: 10px;">web</a>
+            <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a>
         </div>
     </div>
 
